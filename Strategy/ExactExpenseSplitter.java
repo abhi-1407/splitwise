@@ -1,18 +1,19 @@
 package Strategy;
 
-import Strategy.ExpenseSplitter;
 import entities.Split;
 import entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EqualExpenseSplitter implements ExpenseSplitter {
+public class ExactExpenseSplitter implements ExpenseSplitter{
     @Override
     public List<Split> split(double amount, List<Split> splits) {
-        double share = amount / splits.size();
+        double total = 0;
         for(Split split : splits){
-            split.setAmount(share);
+            total += split.getAmount();
+        }
+        if(total != amount){
+            throw new RuntimeException("Invalid Exact Split");
         }
         return splits;
     }

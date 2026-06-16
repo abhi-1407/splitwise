@@ -2,7 +2,7 @@ package entities;
 
 public class Split {
     private final User user;
-    private final double amount;
+    private double amount;
 
     public Split(User user, double share) {
         this.user = user;
@@ -15,5 +15,9 @@ public class Split {
 
     public User getUser() {
         return user;
+    }
+
+    public void setAmount(double amount){
+        this.amount = amount;
     }
 }

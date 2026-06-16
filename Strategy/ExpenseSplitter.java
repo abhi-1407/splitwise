@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ExpenseSplitter {
 
-    List<Split> split(double amount, List<User> users);
+    List<Split> split(double amount, List<Split> splits);
 }

@@ -16,12 +16,11 @@ public class ExpenseService {
         this.expenseRepository = expenseRepository;
         this.balanceRepository = balanceRepository;
     }
-    public Expense createExpense(String expenseId, double amount, User paidBy, List<User> participants, ExpenseSplitter splitter){
-        List<Split> splitList = splitter.split(amount,participants);
+    public void createExpense(String expenseId, double amount, User paidBy, List<Split> splits, ExpenseSplitter splitter){
+        List<Split> splitList = splitter.split(amount,splits);
         Expense expense = new Expense(expenseId,amount,paidBy,splitList);
         expenseRepository.save(expense);
         updateBalances(paidBy,splitList);
-        return expense;
     }
     private void updateBalances(User paidBy,List<Split> splitList){
         for (Split split : splitList) {
