@@ -69,4 +69,10 @@ public class InMemoryBalanceRepository implements BalanceRepository{
         }
         return 0;
     }
+
+    @Override
+    public Map<String, Map<String, Long>> getAllBalances() {
+        return balances;
+    }
+
 }
