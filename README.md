@@ -1,92 +1,154 @@
 Splitwise LLD
 
-A simplified implementation of Splitwise built in Java to practice Low-Level Design concepts.
+A simplified implementation of Splitwise built in Java to practice Low-Level Design concepts, OOP principles, and design patterns.
 
 Features Implemented
 
+User Management
 * Add Users
+* User Repository
+* User Lookup
+
+Expense Management
 * Create Expenses
-* Equal Expense Split
 * Expense Repository
+
+Expense Splitting Strategies
+* Equal Split
+* Exact Split
+* Percentage Split
+
+Balance Management
 * Balance Repository
 * Balance Tracking
+* Balance Netting
+* Show User Balances
+* Show All Balances
+
+⸻
 
 Design Patterns Used
 
 Strategy Pattern
-Used for supporting multiple expense splitting algorithms.
+Used to support multiple expense splitting algorithms.
 
-Current implementation:
+Implemented Strategies:
 * EqualExpenseSplitter
-
-Planned:
-
 * ExactExpenseSplitter
 * PercentageExpenseSplitter
 
+This allows new splitting algorithms to be added without modifying existing business logic.
+
+⸻
+
 Repository Pattern
+Repositories abstract storage concerns from business logic.
 
-Repositories abstract storage concerns.
-
-Current implementations:
-
+Implemented Repositories:
+* InMemoryUserRepository
 * InMemoryExpenseRepository
 * InMemoryBalanceRepository
 
+⸻
+
 Example
 
-A pays ₹900 for A, B and C
+Equal Split
 
-Equal Split:
+Expense:
+A pays ₹900 for A, B and C.
 
-A -> ₹300
-B -> ₹300
-C -> ₹300
+Split:
+* A -> ₹300
+* B -> ₹300
+* C -> ₹300
 
 Balances:
+* B owes A ₹300
+* C owes A ₹300
 
-B owes A ₹300
-C owes A ₹300
+⸻
+
+Exact Split
+
+Expense:
+A pays ₹1000
+
+Split:
+* A -> ₹200
+* B -> ₹300
+* C -> ₹500
+
+Balances:
+* B owes A ₹300
+* C owes A ₹500
+
+⸻
+
+Percentage Split
+
+Expense:
+A pays ₹1000
+
+Percentages:
+* A -> 20%
+* B -> 30%
+* C -> 50%
+
+Calculated Split:
+* A -> ₹200
+* B -> ₹300
+* C -> ₹500
+
+Balances:
+* B owes A ₹300
+* C owes A ₹500
+
+⸻
 
 Balance Netting
-
 The system maintains net balances between users instead of storing redundant opposing debts.
 
-Example:
+Example
 
-Before Netting:
+Expense 1
 A pays ₹600
-B owes A ₹300
 
-Later:
+Result:
+* B owes A ₹300
+
+Expense 2
 B pays ₹400
-A owes B ₹200
 
-Naive Storage:
+Result:
+* A owes B ₹200
 
+Naive Storage
 * B owes A ₹300
 * A owes B ₹200
 
-Netted Result:
-
+Netted Result
 * B owes A ₹100
 
-This reduces redundant balance entries and keeps the debt graph simplified.
+This keeps the balance graph simplified and avoids storing redundant debt relationships.
 
 Future Enhancements
-
-* Percentage Split
 * Group Support
 * Settle Up
 * Transaction History
 * Persistent Storage
 * REST APIs
+* Spring Boot Integration
+
+⸻
 
 Learning Outcomes
-``
 * Object Modeling
+* OOP Principles
 * Separation of Concerns
 * Strategy Pattern
 * Repository Pattern
 * Dependency Injection
 * Service Layer Design
+* Balance Netting Logic
+* Extensible System Design
