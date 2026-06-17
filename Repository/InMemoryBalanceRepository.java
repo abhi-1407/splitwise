@@ -40,6 +40,9 @@ public class InMemoryBalanceRepository implements BalanceRepository{
     private void removeEntry(User creditor,User debtor){
         String creditorId = creditor.getId();
         String debtorId = debtor.getId();
+        if(!balances.containsKey(creditorId) || !balances.get(creditorId).containsKey(debtorId)){
+            return;
+        }
 
         balances.get(creditorId).remove(debtorId);
     }

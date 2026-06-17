@@ -14,11 +14,9 @@ Features Implemented
 Design Patterns Used
 
 Strategy Pattern
-
 Used for supporting multiple expense splitting algorithms.
 
 Current implementation:
-
 * EqualExpenseSplitter
 
 Planned:
@@ -50,11 +48,34 @@ Balances:
 B owes A ₹300
 C owes A ₹300
 
+Balance Netting
+
+The system maintains net balances between users instead of storing redundant opposing debts.
+
+Example:
+
+Before Netting:
+A pays ₹600
+B owes A ₹300
+
+Later:
+B pays ₹400
+A owes B ₹200
+
+Naive Storage:
+
+* B owes A ₹300
+* A owes B ₹200
+
+Netted Result:
+
+* B owes A ₹100
+
+This reduces redundant balance entries and keeps the debt graph simplified.
+
 Future Enhancements
 
-* Exact Split
 * Percentage Split
-* Balance Netting
 * Group Support
 * Settle Up
 * Transaction History
