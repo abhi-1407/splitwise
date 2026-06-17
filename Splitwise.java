@@ -4,6 +4,8 @@ import Service.ExpenseService;
 import Service.UserService;
 import Strategy.EqualExpenseSplitter;
 import Strategy.ExpenseSplitter;
+import Strategy.PercentageExpenseSplit;
+import entities.PercentageSplit;
 import entities.Split;
 import entities.User;
 
@@ -27,11 +29,11 @@ public class Splitwise {
 
 
         List<Split> splitList = List.of(
-                new Split(user1,0),
-                new Split(user2,0)
+                new PercentageSplit(user1,0,20),
+                new PercentageSplit(user2,0,80)
         );
 
-        expenseService.createExpense("EXP-1",900,user1,splitList,new EqualExpenseSplitter());
+        expenseService.createExpense("EXP-1",900,user1,splitList,new PercentageExpenseSplit());
         balanceService.showBalance(user1);
     }
 }
