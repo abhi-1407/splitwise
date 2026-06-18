@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Repository.UserRepository;
+import repository.UserRepository;
 import entities.User;
 
 public class UserService {

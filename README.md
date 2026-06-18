@@ -6,12 +6,12 @@ Features Implemented
 
 User Management
 * Add Users
-* User Repository
+* User repository
 * User Lookup
 
 Expense Management
 * Create Expenses
-* Expense Repository
+* Expense repository
 
 Expense Splitting Strategies
 * Equal Split
@@ -19,7 +19,7 @@ Expense Splitting Strategies
 * Percentage Split
 
 Balance Management
-* Balance Repository
+* Balance repository
 * Balance Tracking
 * Balance Netting
 * Show User Balances
@@ -29,7 +29,7 @@ Balance Management
 
 Design Patterns Used
 
-Strategy Pattern
+strategy Pattern
 Used to support multiple expense splitting algorithms.
 
 Implemented Strategies:
@@ -41,7 +41,7 @@ This allows new splitting algorithms to be added without modifying existing busi
 
 ⸻
 
-Repository Pattern
+repository Pattern
 Repositories abstract storage concerns from business logic.
 
 Implemented Repositories:
@@ -146,9 +146,9 @@ Learning Outcomes
 * Object Modeling
 * OOP Principles
 * Separation of Concerns
-* Strategy Pattern
-* Repository Pattern
+* strategy Pattern
+* repository Pattern
 * Dependency Injection
-* Service Layer Design
+* service Layer Design
 * Balance Netting Logic
 * Extensible System Design

@@ -1,10 +1,7 @@
-package Strategy;
+package strategy;
 
-import Strategy.ExpenseSplitter;
 import entities.Split;
-import entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EqualExpenseSplitter implements ExpenseSplitter {

@@ -1,8 +1,8 @@
-package Service;
+package service;
 
-import Repository.BalanceRepository;
-import Repository.ExpenseRepository;
-import Strategy.ExpenseSplitter;
+import repository.BalanceRepository;
+import repository.ExpenseRepository;
+import strategy.ExpenseSplitter;
 import entities.Expense;
 import entities.Group;
 import entities.Split;

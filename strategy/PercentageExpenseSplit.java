@@ -1,9 +1,7 @@
-package Strategy;
+package strategy;
 
-import entities.Expense;
 import entities.PercentageSplit;
 import entities.Split;
-import entities.User;
 import exceptions.InvalidPercentageException;
 
 import java.util.List;

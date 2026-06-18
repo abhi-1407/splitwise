@@ -1,7 +1,6 @@
-package Strategy;
+package strategy;
 
 import entities.Split;
-import entities.User;
 
 import java.util.List;
 

@@ -1,10 +1,8 @@
-import Repository.*;
-import Service.BalanceService;
-import Service.ExpenseService;
-import Service.UserService;
-import Strategy.EqualExpenseSplitter;
-import Strategy.ExpenseSplitter;
-import Strategy.PercentageExpenseSplit;
+import repository.*;
+import service.BalanceService;
+import service.ExpenseService;
+import service.UserService;
+import strategy.PercentageExpenseSplit;
 import entities.PercentageSplit;
 import entities.Split;
 import entities.User;

@@ -1,9 +1,8 @@
-package Repository;
+package repository;
 
 import entities.User;
 import exceptions.UserNotFoundException;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 

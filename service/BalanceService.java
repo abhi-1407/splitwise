@@ -1,7 +1,7 @@
-package Service;
+package service;
 
-import Repository.BalanceRepository;
-import Repository.UserRepository;
+import repository.BalanceRepository;
+import repository.UserRepository;
 import entities.User;
 
 import java.util.Map;

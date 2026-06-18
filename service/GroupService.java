@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Repository.GroupRepository;
+import repository.GroupRepository;
 import entities.Group;
 import entities.User;
 import exceptions.MemberNotFoundException;
