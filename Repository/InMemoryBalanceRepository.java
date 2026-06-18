@@ -2,7 +2,6 @@ package Repository;
 
 import entities.User;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +42,6 @@ public class InMemoryBalanceRepository implements BalanceRepository{
         if(!balances.containsKey(creditorId) || !balances.get(creditorId).containsKey(debtorId)){
             return;
         }
-
         balances.get(creditorId).remove(debtorId);
     }
 

@@ -4,6 +4,7 @@ import Repository.BalanceRepository;
 import Repository.ExpenseRepository;
 import Strategy.ExpenseSplitter;
 import entities.Expense;
+import entities.Group;
 import entities.Split;
 import entities.User;
 
@@ -18,7 +19,13 @@ public class ExpenseService {
     }
     public void createExpense(String expenseId, double amount, User paidBy, List<Split> splits, ExpenseSplitter splitter){
         List<Split> splitList = splitter.split(amount,splits);
-        Expense expense = new Expense(expenseId,amount,paidBy,splitList);
+        Expense expense = new Expense(expenseId,amount,paidBy,splitList,null);
+        expenseRepository.save(expense);
+        updateBalances(paidBy,splitList);
+    }
+    public void createGroupExpense(String expenseId, double amount, User paidBy, List<Split> splits, ExpenseSplitter splitter, Group group){
+        List<Split> splitList = splitter.split(amount,splits);
+        Expense expense = new Expense(expenseId,amount,paidBy,splitList,group);
         expenseRepository.save(expense);
         updateBalances(paidBy,splitList);
     }

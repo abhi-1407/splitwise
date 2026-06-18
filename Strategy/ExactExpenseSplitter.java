@@ -2,6 +2,7 @@ package Strategy;
 
 import entities.Split;
 import entities.User;
+import exceptions.InvalidSplitException;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class ExactExpenseSplitter implements ExpenseSplitter{
             total += split.getAmount();
         }
         if(total != amount){
-            throw new RuntimeException("Invalid Exact Split");
+            throw new InvalidSplitException("Invalid Split total is not equal to amount");
         }
         return splits;
     }

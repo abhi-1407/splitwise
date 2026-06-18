@@ -4,6 +4,7 @@ import entities.Expense;
 import entities.PercentageSplit;
 import entities.Split;
 import entities.User;
+import exceptions.InvalidPercentageException;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PercentageExpenseSplit implements ExpenseSplitter {
             totalPercentage += percentageSplit.getPercentage();
         }
         if(totalPercentage != 100){
-            throw new RuntimeException("Percentages should sum to 100");
+            throw new InvalidPercentageException();
         }
 
         for(Split split : splits){

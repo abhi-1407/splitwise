@@ -8,11 +8,9 @@ public class UserService {
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-
     public void registerUser(User user){
         userRepository.save(user);
     }
-
     public User getUser(String userId){
         return userRepository.findById(userId);
     }
