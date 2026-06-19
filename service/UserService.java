@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.DuplicateUserException;
 import repository.UserRepository;
 import entities.User;
 
@@ -9,6 +10,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public void registerUser(User user){
+        if(userRepository.findById(user.getId()) != null){
+            throw new DuplicateUserException();
+        }
         userRepository.save(user);
     }
     public User getUser(String userId){

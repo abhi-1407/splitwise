@@ -18,7 +18,7 @@ public class InMemoryUserRepository implements UserRepository {
     @Override
     public User findById(String userId) {
         if(!users.containsKey(userId)){
-            throw new UserNotFoundException(userId);
+                return null;
         }
         return users.get(userId);
     }

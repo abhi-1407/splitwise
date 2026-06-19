@@ -26,6 +26,50 @@ Balance Management
 * Show All Balances
 
 ⸻
+Group Support
+
+The system supports creating and managing groups for shared expenses.
+
+Features
+
+* Create Groups
+* Add Members
+* Remove Members
+* Create Group Expenses
+* Group Expense Validation
+
+Validation Rules
+
+Before a group expense is created:
+
+* The payer must belong to the group.
+* Every participant in the expense must belong to the group.
+
+Example:
+
+Group Members:
+
+* Abhilash
+* Rahul
+* Abhishek
+
+Valid Expense:
+
+* Paid By: Abhilash
+* Participants: Abhilash, Rahul, Abhishek
+
+Invalid Expense:
+
+* Paid By: Abhilash
+* Participants: Abhilash, Rahul, RandomUser
+
+Result:
+
+* InvalidGroupException is thrown.
+
+This ensures that expenses cannot be created using users who are not part of the group.
+
+–
 
 Design Patterns Used
 

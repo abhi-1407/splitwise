@@ -25,4 +25,16 @@ public class BalanceService {
             System.out.println(userRepository.findById(s).getName() + " owes amount " + debtorMap.get(s) + " to " + userName);
         }
     }
+
+    public void showAllBalances(){
+        Map<String, Map<String,Long>> balances = balanceRepository.getAllBalances();
+
+        for(String userId : balances.keySet()){
+            Map<String,Long> debtorMap = balances.get(userId);
+            for(String s : debtorMap.keySet()){
+                System.out.println(userRepository.findById(s).getName() + " owes amount " + debtorMap.get(s) + " to " + userRepository.findById(userId).getName());
+            }
+        }
+
+    }
 }
