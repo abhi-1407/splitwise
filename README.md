@@ -1,198 +1,179 @@
-Splitwise LLD
+# Splitwise LLD
 
-A simplified implementation of Splitwise built in Java to practice Low-Level Design concepts, OOP principles, and design patterns.
+A simplified implementation of Splitwise built in Java to practice Low-Level Design concepts, object-oriented design, design patterns, and backend architecture.
 
-Features Implemented
+---
 
-User Management
-* Add Users
-* User repository
-* User Lookup
+## Features Implemented
 
-Expense Management
-* Create Expenses
-* Expense repository
+### User Management
+- Register Users
+- User Repository
+- User Validation
 
-Expense Splitting Strategies
-* Equal Split
-* Exact Split
-* Percentage Split
+### Expense Management
+- Create Expenses
+- Equal Split
+- Exact Split
+- Percentage Split
 
-Balance Management
-* Balance repository
-* Balance Tracking
-* Balance Netting
-* Show User Balances
-* Show All Balances
+### Group Management
+- Create Groups
+- Add Members
+- Remove Members
+- Group Expense Validation
 
-⸻
-Group Support
+### Balance Management
+- Balance Tracking
+- Balance Netting
+- Balance Settlement
 
-The system supports creating and managing groups for shared expenses.
+### Debt Simplification
+- Compute net balances across all users
+- Simplify debt graph by removing intermediate transactions
+- Generate optimized settlements between debtors and creditors
 
-Features
+---
 
-* Create Groups
-* Add Members
-* Remove Members
-* Create Group Expenses
-* Group Expense Validation
+## Design Patterns Used
 
-Validation Rules
+### Strategy Pattern
 
-Before a group expense is created:
+Used for supporting multiple expense splitting algorithms.
 
-* The payer must belong to the group.
-* Every participant in the expense must belong to the group.
+Current implementations:
 
-Example:
+- EqualExpenseSplitter
+- ExactExpenseSplitter
+- PercentageExpenseSplitter
 
-Group Members:
+### Repository Pattern
 
-* Abhilash
-* Rahul
-* Abhishek
+Repositories abstract storage concerns.
 
-Valid Expense:
+Current implementations:
 
-* Paid By: Abhilash
-* Participants: Abhilash, Rahul, Abhishek
+- InMemoryUserRepository
+- InMemoryExpenseRepository
+- InMemoryBalanceRepository
+- InMemoryGroupRepository
 
-Invalid Expense:
+### Service Layer Pattern
 
-* Paid By: Abhilash
-* Participants: Abhilash, Rahul, RandomUser
+Business logic is encapsulated within services.
 
-Result:
+- UserService
+- ExpenseService
+- BalanceService
+- GroupService
+- DebtSimplificationService
 
-* InvalidGroupException is thrown.
+---
 
-This ensures that expenses cannot be created using users who are not part of the group.
+## Balance Netting
 
-–
-
-Design Patterns Used
-
-strategy Pattern
-Used to support multiple expense splitting algorithms.
-
-Implemented Strategies:
-* EqualExpenseSplitter
-* ExactExpenseSplitter
-* PercentageExpenseSplitter
-
-This allows new splitting algorithms to be added without modifying existing business logic.
-
-⸻
-
-repository Pattern
-Repositories abstract storage concerns from business logic.
-
-Implemented Repositories:
-* InMemoryUserRepository
-* InMemoryExpenseRepository
-* InMemoryBalanceRepository
-
-⸻
-
-Example
-
-Equal Split
-
-Expense:
-A pays ₹900 for A, B and C.
-
-Split:
-* A -> ₹300
-* B -> ₹300
-* C -> ₹300
-
-Balances:
-* B owes A ₹300
-* C owes A ₹300
-
-⸻
-
-Exact Split
-
-Expense:
-A pays ₹1000
-
-Split:
-* A -> ₹200
-* B -> ₹300
-* C -> ₹500
-
-Balances:
-* B owes A ₹300
-* C owes A ₹500
-
-⸻
-
-Percentage Split
-
-Expense:
-A pays ₹1000
-
-Percentages:
-* A -> 20%
-* B -> 30%
-* C -> 50%
-
-Calculated Split:
-* A -> ₹200
-* B -> ₹300
-* C -> ₹500
-
-Balances:
-* B owes A ₹300
-* C owes A ₹500
-
-⸻
-
-Balance Netting
 The system maintains net balances between users instead of storing redundant opposing debts.
 
-Example
+### Example
 
-Expense 1
-A pays ₹600
+Before Netting:
 
-Result:
-* B owes A ₹300
+Rahul owes Abhilash ₹500
 
-Expense 2
-B pays ₹400
+Abhilash owes Rahul ₹300
 
-Result:
-* A owes B ₹200
+Stored Result:
 
-Naive Storage
-* B owes A ₹300
-* A owes B ₹200
+Rahul owes Abhilash ₹200
 
-Netted Result
-* B owes A ₹100
+This keeps the debt graph minimal and avoids duplicate debt relationships.
 
-This keeps the balance graph simplified and avoids storing redundant debt relationships.
+---
 
-Future Enhancements
-* Group Support
-* Settle Up
-* Transaction History
-* Persistent Storage
-* REST APIs
-* Spring Boot Integration
+## Debt Simplification
 
-⸻
+The system can simplify debt chains by calculating net balances and generating optimized settlements.
 
-Learning Outcomes
-* Object Modeling
-* OOP Principles
-* Separation of Concerns
-* strategy Pattern
-* repository Pattern
-* Dependency Injection
-* service Layer Design
-* Balance Netting Logic
-* Extensible System Design
+### Example
+
+Original Debts
+
+A owes B ₹100
+
+B owes C ₹100
+
+Simplified Result
+
+A owes C ₹100
+
+Intermediate transactions are removed automatically.
+
+---
+
+### Example Output
+
+Net Balances
+
+Abhilash = -800
+
+Mirang = -600
+
+Rahul = +250
+
+Abhishek = +500
+
+Harinder = +50
+
+Sahil = +600
+
+Simplified Settlements
+
+Abhilash → Sahil ₹600
+
+Abhilash → Rahul ₹200
+
+Mirang → Abhishek ₹500
+
+Mirang → Harinder ₹50
+
+Mirang → Rahul ₹50
+---
+
+## Future Enhancements
+
+### Backend
+
+- Spring Boot Migration
+- PostgreSQL Persistence
+- REST APIs
+- Swagger/OpenAPI Documentation
+- JWT Authentication
+- Docker Support
+
+### Product Features
+
+- Expense History
+- Settlement History
+- Group Specific Settlements
+- Notifications
+- Recurring Expenses
+
+### Engineering
+
+- Thread Safe Balance Updates
+- Unit Tests
+- Integration Tests
+
+---
+
+## Learning Outcomes
+
+- Object-Oriented Design
+- SOLID Principles
+- Strategy Pattern
+- Repository Pattern
+- Service Layer Design
+- Debt Simplification Algorithms
+- Balance Netting
+- Exception Handling
+- Domain Modeling
