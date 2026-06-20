@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.InvalidDebtException;
 import repository.BalanceRepository;
 import repository.UserRepository;
 import entities.User;
@@ -35,6 +36,17 @@ public class BalanceService {
                 System.out.println(userRepository.findById(s).getName() + " owes amount " + debtorMap.get(s) + " to " + userRepository.findById(userId).getName());
             }
         }
+    }
 
+    public void settleBalance(User debtor, User creditor, long amount){
+        long existingDebt = balanceRepository.getBalance(creditor,debtor);
+        if(existingDebt < amount){
+            throw new InvalidDebtException();
+        }
+        long remainingAmount = existingDebt - amount;
+        if(remainingAmount == 0){
+            balanceRepository.removeEntry(creditor,debtor);
+        }
+        balanceRepository.setBalance(creditor,debtor,remainingAmount);
     }
 }

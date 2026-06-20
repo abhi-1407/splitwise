@@ -50,5 +50,11 @@ public class Splitwise {
 
         expenseService.createGroupExpense("EXP-1",800,user1,splitList,new ExactExpenseSplitter(),group);
         balanceService.showAllBalances();
+        System.out.println("-------------------");
+
+        //Settling balances
+        balanceService.settleBalance(user2,user1,100);
+
+        balanceService.showAllBalances();
     }
 }

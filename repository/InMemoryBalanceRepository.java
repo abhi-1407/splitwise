@@ -1,6 +1,7 @@
 package repository;
 
 import entities.User;
+import exceptions.MemberNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,26 +27,27 @@ public class InMemoryBalanceRepository implements BalanceRepository{
         */
 
         if(reverseBalance > 0){
-            setAmount(creditor,debtor,reverseBalance);
+            setBalance(creditor,debtor,reverseBalance);
             removeEntry(debtor,creditor);
         }else if(reverseBalance == 0){
             removeEntry(creditor,debtor);
             removeEntry(debtor,creditor);
         }else{
-            setAmount(debtor,creditor,Math.abs(reverseBalance));
+            setBalance(debtor,creditor,Math.abs(reverseBalance));
         }
     }
 
-    private void removeEntry(User creditor,User debtor){
+    public void removeEntry(User creditor,User debtor){
         String creditorId = creditor.getId();
         String debtorId = debtor.getId();
+        //We cant throw an exception here because we can have creditor removed first , check the condition when both creditor and debtor needs to be removed
         if(!balances.containsKey(creditorId) || !balances.get(creditorId).containsKey(debtorId)){
             return;
         }
         balances.get(creditorId).remove(debtorId);
     }
 
-    private void setAmount(User creditor,User debtor,long amount){
+    public void setBalance(User creditor,User debtor,long amount){
         String creditorId = creditor.getId();
         String debtorId = debtor.getId();
 
@@ -67,7 +69,6 @@ public class InMemoryBalanceRepository implements BalanceRepository{
         }
         return 0;
     }
-
     @Override
     public Map<String, Map<String, Long>> getAllBalances() {
         return balances;
