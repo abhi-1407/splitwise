@@ -1,15 +1,9 @@
-import entities.Group;
+import entities.*;
 import repository.*;
-import service.BalanceService;
-import service.ExpenseService;
-import service.GroupService;
-import service.UserService;
+import service.*;
 import strategy.EqualExpenseSplitter;
 import strategy.ExactExpenseSplitter;
 import strategy.PercentageExpenseSplit;
-import entities.PercentageSplit;
-import entities.Split;
-import entities.User;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,44 +11,42 @@ import java.util.Set;
 
 public class Splitwise {
     public static void main(String[] args) {
-        ExpenseRepository expenseRepository = new InMemoryExpenseRepository();
         BalanceRepository balanceRepository = new InMemoryBalanceRepository();
         UserRepository userRepository = new InMemoryUserRepository();
-        GroupRepository groupRepository = new InMemoryGroupRepository();
 
-        ExpenseService expenseService = new ExpenseService(expenseRepository, balanceRepository);
         BalanceService balanceService = new BalanceService(balanceRepository, userRepository);
         UserService userService = new UserService(userRepository);
-        GroupService groupService = new GroupService(groupRepository);
+        DebtSimplificationService debtSimplificationService = new DebtSimplificationService(balanceRepository);
 
         User user1 = new User("1", "Abhilash", "a@gmail.com");
         User user2 = new User("2", "Rahul", "rl@gmail.com");
         User user3 = new User("3", "Abhishek", "ab@gmail.com");
+        User user4 = new User("4", "Mirang", "mn@gmail.com");
+        User user5 = new User("5", "Harinder", "h@gmail.com");
+        User user6 = new User("6", "Sahil", "sa@gmail.com");
 
         userService.registerUser(user1);
         userService.registerUser(user2);
         userService.registerUser(user3);
+        userService.registerUser(user4);
+        userService.registerUser(user5);
+        userService.registerUser(user6);
 
-        Set<User> groupMembers = new HashSet<>();
-        groupMembers.add(user1);
-        groupMembers.add(user2);
-        groupMembers.add(user3);
-
-        Group group = new Group("1","Germany Trip",groupMembers);
-
-        List<Split> splitList = List.of(
-                new Split(user1,100),
-                new Split(user2,200),
-                new Split(user3,500)
-        );
-
-        expenseService.createGroupExpense("EXP-1",800,user1,splitList,new ExactExpenseSplitter(),group);
+        balanceRepository.updateBalance(user2, user1, 500);
+        balanceRepository.updateBalance(user3, user1, 300);
+        balanceRepository.updateBalance(user3, user4, 200);
+        balanceRepository.updateBalance(user5, user4, 400);
+        balanceRepository.updateBalance(user6, user2, 250);
+        balanceRepository.updateBalance(user6, user5, 350);
         balanceService.showAllBalances();
+
         System.out.println("-------------------");
 
         //Settling balances
-        balanceService.settleBalance(user2,user1,100);
+        List<Settlement> result = debtSimplificationService.getSimplifiedBalance();
 
-        balanceService.showAllBalances();
+        for(Settlement settlement : result){
+            System.out.println(userRepository.findById(settlement.getDebtor()).getName() + " -> " + userRepository.findById(settlement.getCreditor()).getName() + " = " + settlement.getAmount());
+        }
     }
 }
