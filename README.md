@@ -33,6 +33,19 @@ A simplified implementation of Splitwise built in Java to practice Low-Level Des
 - Simplify debt graph by removing intermediate transactions
 - Generate optimized settlements between debtors and creditors
 
+## Current Limitations
+
+The current implementation intentionally focuses on core business logic and LLD concepts.
+
+Limitations:
+
+- Balances are maintained globally and not per group.
+- Data is stored entirely in-memory.
+- No persistent storage layer.
+- No transaction or expense history support.
+- Balance updates are not yet thread-safe.
+- Expense creation and settlement are not yet atomic operations.
+
 ---
 
 ## Design Patterns Used
@@ -163,6 +176,9 @@ Mirang → Rahul ₹50
 - Thread Safe Balance Updates
 - Unit Tests
 - Integration Tests
+- Transaction Management
+- Concurrency Handling
+- Optimistic/Pessimistic Locking
 
 ---
 

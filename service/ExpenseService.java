@@ -12,8 +12,8 @@ import entities.User;
 import java.util.List;
 
 public class ExpenseService {
-    public ExpenseRepository expenseRepository;
-    public BalanceRepository balanceRepository;
+    public final ExpenseRepository expenseRepository;
+    public final BalanceRepository balanceRepository;
     public ExpenseService(ExpenseRepository expenseRepository,BalanceRepository balanceRepository){
         this.expenseRepository = expenseRepository;
         this.balanceRepository = balanceRepository;
