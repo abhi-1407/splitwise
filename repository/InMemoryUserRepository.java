@@ -1,7 +1,6 @@
 package repository;
 
-import entities.User;
-import exceptions.UserNotFoundException;
+import src.main.java.com.abhilash.splitwise.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;

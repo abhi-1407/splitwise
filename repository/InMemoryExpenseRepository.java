@@ -1,6 +1,6 @@
 package repository;
 
-import entities.Expense;
+import src.main.java.com.abhilash.splitwise.entity.Expense;
 
 import java.util.ArrayList;
 import java.util.HashMap;

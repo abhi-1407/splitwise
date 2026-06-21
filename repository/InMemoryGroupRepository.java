@@ -1,6 +1,6 @@
 package repository;
 
-import entities.Group;
+import src.main.java.com.abhilash.splitwise.entity.Group;
 import exceptions.GroupNotFoundException;
 
 import java.util.HashMap;

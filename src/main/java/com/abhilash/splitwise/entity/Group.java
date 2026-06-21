@@ -1,6 +1,6 @@
-package entities;
+package com.abhilash.splitwise.entity;
 
-import java.util.List;
+
 import java.util.Set;
 
 public class Group {

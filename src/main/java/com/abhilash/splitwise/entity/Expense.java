@@ -1,4 +1,5 @@
-package entities;
+package com.abhilash.splitwise.entity;
+
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package service;
 
 import repository.GroupRepository;
-import entities.Group;
-import entities.User;
+import src.main.java.com.abhilash.splitwise.entity.Group;
+import src.main.java.com.abhilash.splitwise.entity.User;
 import exceptions.MemberNotFoundException;
 
 import java.util.*;

@@ -1,6 +1,5 @@
-package entities;
+package com.abhilash.splitwise.entity;
 
-import repository.BalanceRepository;
 
 public class BalanceNode {
     private final String userId;

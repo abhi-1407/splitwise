@@ -1,6 +1,6 @@
 package strategy;
 
-import entities.Split;
+import src.main.java.com.abhilash.splitwise.entity.Split;
 
 import java.util.List;
 

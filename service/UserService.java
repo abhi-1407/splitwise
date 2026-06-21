@@ -2,7 +2,7 @@ package service;
 
 import exceptions.DuplicateUserException;
 import repository.UserRepository;
-import entities.User;
+import src.main.java.com.abhilash.splitwise.entity.User;
 
 public class UserService {
     private final UserRepository userRepository;

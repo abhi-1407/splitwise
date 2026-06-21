@@ -1,6 +1,5 @@
-package entities;
+package com.abhilash.splitwise.entity;
 
-import java.util.Formatter;
 
 public class User {
     private String id;

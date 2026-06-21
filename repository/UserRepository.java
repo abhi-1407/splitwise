@@ -1,6 +1,6 @@
 package repository;
 
-import entities.User;
+import src.main.java.com.abhilash.splitwise.entity.User;
 
 public interface UserRepository {
     void save(User user);

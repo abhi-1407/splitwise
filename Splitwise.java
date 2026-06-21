@@ -1,9 +1,11 @@
-import entities.*;
 import repository.*;
 import service.*;
+import src.main.java.com.abhilash.splitwise.entity.Group;
+import src.main.java.com.abhilash.splitwise.entity.Settlement;
+import src.main.java.com.abhilash.splitwise.entity.Split;
+import src.main.java.com.abhilash.splitwise.entity.User;
 import strategy.EqualExpenseSplitter;
 import strategy.ExactExpenseSplitter;
-import strategy.PercentageExpenseSplit;
 
 import java.util.HashSet;
 import java.util.List;

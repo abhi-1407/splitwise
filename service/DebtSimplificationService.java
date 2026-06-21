@@ -1,7 +1,7 @@
 package service;
 
-import entities.BalanceNode;
-import entities.Settlement;
+import src.main.java.com.abhilash.splitwise.entity.BalanceNode;
+import src.main.java.com.abhilash.splitwise.entity.Settlement;
 import repository.BalanceRepository;
 
 import java.util.*;

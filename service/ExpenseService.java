@@ -4,10 +4,10 @@ import exceptions.InvalidGroupException;
 import repository.BalanceRepository;
 import repository.ExpenseRepository;
 import strategy.ExpenseSplitter;
-import entities.Expense;
-import entities.Group;
-import entities.Split;
-import entities.User;
+import src.main.java.com.abhilash.splitwise.entity.Expense;
+import src.main.java.com.abhilash.splitwise.entity.Group;
+import src.main.java.com.abhilash.splitwise.entity.Split;
+import src.main.java.com.abhilash.splitwise.entity.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package entities;
+package com.abhilash.splitwise.entity;
 
 public class PercentageSplit extends Split{
     private double percentage;

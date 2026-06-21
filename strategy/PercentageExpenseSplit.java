@@ -1,7 +1,7 @@
 package strategy;
 
-import entities.PercentageSplit;
-import entities.Split;
+import src.main.java.com.abhilash.splitwise.entity.PercentageSplit;
+import src.main.java.com.abhilash.splitwise.entity.Split;
 import exceptions.InvalidPercentageException;
 
 import java.util.List;

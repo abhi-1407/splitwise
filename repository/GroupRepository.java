@@ -1,6 +1,6 @@
 package repository;
 
-import entities.Group;
+import src.main.java.com.abhilash.splitwise.entity.Group;
 
 public interface GroupRepository {
     void save(Group group);

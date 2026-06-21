@@ -1,4 +1,4 @@
-package entities;
+package com.abhilash.splitwise.entity;
 
 public class Settlement {
     private final String debtor;

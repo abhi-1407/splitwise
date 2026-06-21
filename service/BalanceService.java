@@ -3,7 +3,7 @@ package service;
 import exceptions.InvalidDebtException;
 import repository.BalanceRepository;
 import repository.UserRepository;
-import entities.User;
+import src.main.java.com.abhilash.splitwise.entity.User;
 
 import java.util.Map;
 
