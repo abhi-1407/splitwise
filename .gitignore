@@ -1,2 +1,7 @@
 /out
 .idea
+target/
+.DS_Store
+*.log
+.env
+.vscode/
