@@ -1,12 +1,14 @@
-package repository;
+package com.abhilash.splitwise.repository;
 
-import src.main.java.com.abhilash.splitwise.entity.User;
+import com.abhilash.splitwise.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class InMemoryUserRepository implements UserRepository {
-    private final Map<String,User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
     @Override
     public void save(User user) {
         if(users.containsKey(user.getId())){

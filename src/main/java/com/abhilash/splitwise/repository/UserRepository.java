@@ -1,6 +1,7 @@
-package repository;
+package com.abhilash.splitwise.repository;
 
-import src.main.java.com.abhilash.splitwise.entity.User;
+
+import com.abhilash.splitwise.entity.User;
 
 public interface UserRepository {
     void save(User user);
