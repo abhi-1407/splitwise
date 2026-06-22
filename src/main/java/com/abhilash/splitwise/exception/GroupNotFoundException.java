@@ -1,4 +1,4 @@
-package exceptions;
+package com.abhilash.splitwise.exception;
 
 public class GroupNotFoundException extends RuntimeException{
     public GroupNotFoundException(String userId){

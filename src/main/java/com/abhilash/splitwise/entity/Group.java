@@ -1,28 +1,22 @@
 package com.abhilash.splitwise.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Set;
 
+
+@Setter
+@Getter
 public class Group {
-    private final String groupId;
-    private final String groupName;
-    private final Set<User> members;
+    private String groupId;
+    private String groupName;
+    private Set<User> members;
 
     public Group(String groupId,String groupName,Set<User> members){
         this.groupId = groupId;
         this.groupName = groupName;
         this.members = members;
-    }
-
-    public Set<User> getMembers(){
-        return members;
-    }
-
-    public String getGroupId(){
-        return groupId;
-    }
-
-    public String getGroupName(){
-        return groupName;
     }
 }

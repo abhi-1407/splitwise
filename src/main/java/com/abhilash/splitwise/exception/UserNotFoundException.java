@@ -1,4 +1,4 @@
-package exceptions;
+package com.abhilash.splitwise.exception;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(String userId){

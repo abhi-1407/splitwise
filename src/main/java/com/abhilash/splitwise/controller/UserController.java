@@ -20,7 +20,6 @@ public class UserController {
         userService.registerUser(user);
         return "User successfully registered";
     }
-
     @GetMapping("/users/{id}")
     public UserResponse getUser(@PathVariable String id){
         User user = userService.getUser(id);

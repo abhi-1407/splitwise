@@ -1,113 +1,161 @@
-# Splitwise LLD
+Splitwise
 
-A simplified implementation of Splitwise built in Java to practice Low-Level Design concepts, object-oriented design, design patterns, and backend architecture.
+A Splitwise clone built to practice backend engineering, low-level design, object-oriented design, design patterns, and Spring Boot development.
 
----
+The project started as a pure Java LLD implementation and is currently being migrated to Spring Boot with REST APIs.
 
-## Features Implemented
+⸻
 
-### User Management
-- Register Users
-- User Repository
-- User Validation
+Features Implemented
 
-### Expense Management
-- Create Expenses
-- Equal Split
-- Exact Split
-- Percentage Split
+User Management
 
-### Group Management
-- Create Groups
-- Add Members
-- Remove Members
-- Group Expense Validation
+* Create User
+* Fetch User by ID
+* User Validation
+* Duplicate User Detection
 
-### Balance Management
-- Balance Tracking
-- Balance Netting
-- Balance Settlement
+Group Management
 
-### Debt Simplification
-- Compute net balances across all users
-- Simplify debt graph by removing intermediate transactions
-- Generate optimized settlements between debtors and creditors
+* Create Group
+* Fetch Group
+* Fetch All Groups
+* Add Members
+* Remove Members
+* Group Membership Validation
 
-## Current Limitations
+Expense Management
 
-The current implementation intentionally focuses on core business logic and LLD concepts.
+* Create Expenses
+* Equal Split
+* Exact Split
+* Percentage Split
 
-Limitations:
+Balance Management
 
-- Balances are maintained globally and not per group.
-- Data is stored entirely in-memory.
-- No persistent storage layer.
-- No transaction or expense history support.
-- Balance updates are not yet thread-safe.
-- Expense creation and settlement are not yet atomic operations.
+* Balance Tracking
+* Balance Netting
+* Balance Settlement
 
----
+Debt Simplification
 
-## Design Patterns Used
+* Compute Net Balances
+* Identify Creditors and Debtors
+* Simplify Debt Graph
+* Generate Optimized Settlements
 
-### Strategy Pattern
+⸻
+
+REST APIs Implemented
+
+User APIs
+
+POST /users
+GET /users/{userId}
+
+Group APIs
+
+POST /groups
+GET /groups
+GET /groups/{groupId}
+GET /groups/{groupId}/members
+POST /groups/members/{groupId}/{userId}
+DELETE /groups/members/{groupId}/{userId}
+
+⸻
+
+Current Architecture
+
+Controller
+↓
+DTO
+↓
+Service
+↓
+Repository
+↓
+In-Memory Storage
+
+The current implementation uses in-memory repositories to focus on business logic and API design before introducing persistent storage.
+
+⸻
+
+Design Patterns Used
+
+Strategy Pattern
 
 Used for supporting multiple expense splitting algorithms.
 
-Current implementations:
+Implementations:
 
-- EqualExpenseSplitter
-- ExactExpenseSplitter
-- PercentageExpenseSplitter
+* EqualExpenseSplitter
+* ExactExpenseSplitter
+* PercentageExpenseSplitter
 
-### Repository Pattern
+Repository Pattern
 
-Repositories abstract storage concerns.
+Repositories abstract storage concerns from business logic.
 
-Current implementations:
+Implementations:
 
-- InMemoryUserRepository
-- InMemoryExpenseRepository
-- InMemoryBalanceRepository
-- InMemoryGroupRepository
+* InMemoryUserRepository
+* InMemoryExpenseRepository
+* InMemoryBalanceRepository
+* InMemoryGroupRepository
 
-### Service Layer Pattern
+Service Layer Pattern
 
-Business logic is encapsulated within services.
+Business logic is encapsulated within dedicated services.
 
-- UserService
-- ExpenseService
-- BalanceService
-- GroupService
-- DebtSimplificationService
+Services:
 
----
+* UserService
+* GroupService
+* ExpenseService
+* BalanceService
+* DebtSimplificationService
 
-## Balance Netting
+DTO Pattern
 
-The system maintains net balances between users instead of storing redundant opposing debts.
+Request and Response DTOs are used to separate API contracts from domain entities.
 
-### Example
+Examples:
 
-Before Netting:
+* CreateUserRequest
+* UserResponse
+* CreateGroupRequest
+
+Dependency Injection
+
+Spring Boot manages object creation and dependency wiring through constructor injection.
+
+⸻
+
+Balance Netting
+
+The system stores only net balances between users.
+
+Example
+
+Before Netting
 
 Rahul owes Abhilash ₹500
 
 Abhilash owes Rahul ₹300
 
-Stored Result:
+Stored Result
 
 Rahul owes Abhilash ₹200
 
-This keeps the debt graph minimal and avoids duplicate debt relationships.
+This avoids maintaining duplicate debt relationships.
 
----
+⸻
 
-## Debt Simplification
+Debt Simplification
 
 The system can simplify debt chains by calculating net balances and generating optimized settlements.
 
-### Example
+Example
 
 Original Debts
 
@@ -119,77 +167,107 @@ Simplified Result
 
 A owes C ₹100
 
-Intermediate transactions are removed automatically.
+Intermediate transactions are eliminated.
 
----
+⸻
 
-### Example Output
+Example Output
 
-Net Balances
+Current Balances
 
-Abhilash = -800
+Rahul owes Abhilash ₹100
 
-Mirang = -600
+Abhishek owes Abhilash ₹100
 
-Rahul = +250
+Mirang owes Abhilash ₹300
 
-Abhishek = +500
+Abhishek owes Rahul ₹200
 
-Harinder = +50
-
-Sahil = +600
+Mirang owes Rahul ₹200
 
 Simplified Settlements
 
-Abhilash → Sahil ₹600
+Mirang → Abhilash ₹400
 
-Abhilash → Rahul ₹200
+Abhishek → Rahul ₹300
 
-Mirang → Abhishek ₹500
+Mirang → Rahul ₹100
 
-Mirang → Harinder ₹50
+⸻
 
-Mirang → Rahul ₹50
----
+Current Limitations
 
-## Future Enhancements
+The current implementation intentionally focuses on core business logic and API design.
 
-### Backend
+Limitations:
 
-- Spring Boot Migration
-- PostgreSQL Persistence
-- REST APIs
-- Swagger/OpenAPI Documentation
-- JWT Authentication
-- Docker Support
+* Balances are maintained globally and not per group.
+* Data is stored entirely in-memory.
+* No persistent database layer.
+* No expense history support.
+* No settlement history support.
+* No authentication or authorization.
+* Balance updates are not thread-safe.
+* Expense creation and settlement are not atomic operations.
 
-### Product Features
+⸻
 
-- Expense History
-- Settlement History
-- Group Specific Settlements
-- Notifications
-- Recurring Expenses
+Tech Stack
 
-### Engineering
+* Java 21
+* Spring Boot
+* Maven
+* Lombok
+* Jakarta Validation
+* REST APIs
 
-- Thread Safe Balance Updates
-- Unit Tests
-- Integration Tests
-- Transaction Management
-- Concurrency Handling
-- Optimistic/Pessimistic Locking
+⸻
 
----
+Future Enhancements
 
-## Learning Outcomes
+Backend
 
-- Object-Oriented Design
-- SOLID Principles
-- Strategy Pattern
-- Repository Pattern
-- Service Layer Design
-- Debt Simplification Algorithms
-- Balance Netting
-- Exception Handling
-- Domain Modeling
+* PostgreSQL Integration
+* Spring Data JPA
+* Swagger/OpenAPI Documentation
+* JWT Authentication
+* Docker Support
+* Flyway Database Migrations
+
+Product Features
+
+* Expense History
+* Settlement History
+* Group Specific Balances
+* Group Specific Debt Simplification
+* Notifications
+* Recurring Expenses
+
+Engineering
+
+* Thread-Safe Balance Updates
+* Transaction Management
+* Concurrency Handling
+* Optimistic Locking
+* Pessimistic Locking
+* Unit Tests
+* Integration Tests
+
+⸻
+
+Learning Outcomes
+
+* Object-Oriented Design
+* SOLID Principles
+* Spring Boot Fundamentals
+* REST API Design
+* DTO Pattern
+* Dependency Injection
+* Strategy Pattern
+* Repository Pattern
+* Service Layer Design
+* Debt Simplification Algorithms
+* Balance Netting
+* Exception Handling
+* Domain Modeling
+* Backend Architecture
