@@ -1,6 +1,7 @@
-package repository;
+package com.abhilash.splitwise.repository;
 
-import src.main.java.com.abhilash.splitwise.entity.Expense;
+
+import com.abhilash.splitwise.entity.Expense;
 
 import java.util.List;
 

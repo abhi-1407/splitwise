@@ -1,12 +1,15 @@
-package repository;
+package com.abhilash.splitwise.repository;
 
-import src.main.java.com.abhilash.splitwise.entity.Expense;
+
+import com.abhilash.splitwise.entity.Expense;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class InMemoryExpenseRepository implements ExpenseRepository{
     private final Map<String,Expense> expenseMap = new HashMap<>();
     @Override

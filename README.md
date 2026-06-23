@@ -26,7 +26,8 @@ Group Management
 
 Expense Management
 
-* Create Expenses
+* Create Expense
+* Fetch Expense by ID
 * Equal Split
 * Exact Split
 * Percentage Split
@@ -44,6 +45,15 @@ Debt Simplification
 * Simplify Debt Graph
 * Generate Optimized Settlements
 
+Exception Handling
+
+* Global Exception Handler
+* Validation Error Handling
+* UserNotFoundException
+* GroupNotFoundException
+* MemberNotFoundException
+* DuplicateUserException
+
 ⸻
 
 REST APIs Implemented
@@ -51,16 +61,28 @@ REST APIs Implemented
 User APIs
 
 POST /users
+
 GET /users/{userId}
 
 Group APIs
 
 POST /groups
+
 GET /groups
+
 GET /groups/{groupId}
+
 GET /groups/{groupId}/members
+
 POST /groups/members/{groupId}/{userId}
+
 DELETE /groups/members/{groupId}/{userId}
+
+Expense APIs
+
+POST /expenses
+
+GET /expenses/{expenseId}
 
 ⸻
 
@@ -76,7 +98,14 @@ Repository
 ↓
 In-Memory Storage
 
-The current implementation uses in-memory repositories to focus on business logic and API design before introducing persistent storage.
+Spring Boot currently powers:
+
+* REST Controllers
+* Dependency Injection
+* Validation
+* Exception Handling
+
+The persistence layer currently uses in-memory repositories and will later be migrated to PostgreSQL using Spring Data JPA.
 
 ⸻
 
@@ -124,6 +153,7 @@ Examples:
 * CreateUserRequest
 * UserResponse
 * CreateGroupRequest
+* CreateExpenseRequest
 
 Dependency Injection
 
@@ -203,6 +233,7 @@ Limitations:
 
 * Balances are maintained globally and not per group.
 * Data is stored entirely in-memory.
+* Expense creation currently does not update balances through the API layer.
 * No persistent database layer.
 * No expense history support.
 * No settlement history support.

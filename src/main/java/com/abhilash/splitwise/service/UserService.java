@@ -2,6 +2,7 @@ package com.abhilash.splitwise.service;
 
 import com.abhilash.splitwise.entity.User;
 import com.abhilash.splitwise.exception.DuplicateUserException;
+import com.abhilash.splitwise.exception.UserNotFoundException;
 import com.abhilash.splitwise.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class UserService {
         userRepository.save(user);
     }
     public User getUser(String userId){
+        User user = userRepository.findById(userId);
+        if(user == null){
+            throw new UserNotFoundException(userId);
+        }
         return userRepository.findById(userId);
     }
 }
