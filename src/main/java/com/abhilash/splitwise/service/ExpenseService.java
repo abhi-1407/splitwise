@@ -6,6 +6,7 @@ import com.abhilash.splitwise.entity.Expense;
 import com.abhilash.splitwise.entity.Split;
 import com.abhilash.splitwise.entity.User;
 import com.abhilash.splitwise.exception.UserNotFoundException;
+import com.abhilash.splitwise.repository.BalanceRepository;
 import com.abhilash.splitwise.repository.ExpenseRepository;
 import com.abhilash.splitwise.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,12 @@ public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
+    private final BalanceRepository balanceRepository;
 
-    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, BalanceRepository balanceRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
+        this.balanceRepository = balanceRepository;
     }
 
     public String createExpense(CreateExpenseRequest request) {
@@ -44,6 +47,12 @@ public class ExpenseService {
         Expense expense = new Expense(request.getExpenseId(), request.getAmount(), paidBy, splits, null);
 
         expenseRepository.save(expense);
+        for (Split split : splits) {
+            if (split.getUser().getId().equals(paidBy.getId())) {
+                continue;
+            }
+            balanceRepository.updateBalance(paidBy, split.getUser(), (long) split.getAmount());
+        }
 
         return "Expense created successfully";
     }

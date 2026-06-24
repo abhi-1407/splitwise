@@ -1,5 +1,8 @@
 package com.abhilash.splitwise.entity;
 
+import lombok.Getter;
+
+@Getter
 public class Settlement {
     private final String debtor;
     private final String creditor;
@@ -10,15 +13,5 @@ public class Settlement {
         this.creditor = creditor;
         this.amount = amount;
     }
-
-    public long getAmount(){
-        return amount;
-    }
-    public String getDebtor(){
-        return debtor;
-    };
-    public String getCreditor(){
-        return creditor;
-    };
 
 }

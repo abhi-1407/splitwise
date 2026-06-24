@@ -1,11 +1,13 @@
 package com.abhilash.splitwise.controller;
 
 import com.abhilash.splitwise.dto.SettleBalanceRequest;
+import com.abhilash.splitwise.entity.Settlement;
 import com.abhilash.splitwise.service.BalanceService;
 import com.abhilash.splitwise.service.DebtSimplificationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,8 +20,8 @@ public class BalanceController {
         this.debtSimplificationService = debtSimplificationService;
     }
     @GetMapping("")
-    public void getAllBalance(){
-        balanceService.getAllBalances();
+    public Map<String, Map<String, Long>> getAllBalance(){
+        return balanceService.getAllBalances();
     }
 
     @GetMapping("/{userId}")
@@ -33,7 +35,7 @@ public class BalanceController {
     }
 
     @GetMapping("/simplify")
-    public void simplifyDebts(){
+    public List<Settlement> simplifyDebts(){
         return debtSimplificationService.getSimplifiedBalance();
     }
 }
