@@ -1,8 +1,12 @@
 package com.abhilash.splitwise.entity;
 
 
+import lombok.Getter;
+
 import java.util.List;
 
+
+@Getter
 public class Expense {
 
     private final String expenseId;
@@ -18,13 +22,4 @@ public class Expense {
         this.splits = splits;
         this.group = group;
     }
-
-    public String getExpenseId(){
-        return expenseId;
-    }
-
-    public Group getGroup(){
-        return group;
-    }
-
 }

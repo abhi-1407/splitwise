@@ -24,13 +24,13 @@ public class BalanceController {
         return balanceService.getAllBalances();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public Map<String, Long> getBalance(@PathVariable String userId){
         return balanceService.getUserBalances(userId);
     }
 
     @PostMapping("/settle")
-    public String settle(SettleBalanceRequest request){
+    public String settle(@RequestBody SettleBalanceRequest request){
         return balanceService.settleBalance(request.getDebtorId(), request.getCreditorId(), request.getAmount());
     }
 

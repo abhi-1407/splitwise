@@ -10,6 +10,7 @@ import com.abhilash.splitwise.repository.GroupRepository;
 import com.abhilash.splitwise.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -32,11 +33,19 @@ public class GroupService {
             CreateGroupRequest createGroupRequest) {
 
         String groupId = UUID.randomUUID().toString();
+        Set<User> groupList = new HashSet<>();
 
+        for(String id : createGroupRequest.getMemberIds()){
+            User user = userRepository.findById(id);
+            if(user == null){
+                throw new UserNotFoundException(id);
+            }
+            groupList.add(user);
+        }
         Group group = new Group(
                 groupId,
                 createGroupRequest.getGroupName(),
-                createGroupRequest.getMembers()
+                groupList
         );
 
         groupRepository.save(group);

@@ -15,5 +15,5 @@ public class CreateGroupRequest {
     private String groupName;
 
     @NotEmpty
-    private Set<User> members;
+    private Set<String> memberIds;
 }
