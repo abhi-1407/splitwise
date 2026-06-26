@@ -1,16 +1,30 @@
 package com.abhilash.splitwise.entity;
 
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Getter
+@Entity
+@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    private final String id;
-    private final String name;
-    private final String emailId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-    public User(String id,String name,String emailId){
-        this.id = id;
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String emailId;
+
+    public User(String name,String emailId){
         this.name = name;
         this.emailId = emailId;
     }

@@ -16,7 +16,7 @@ public class UserController {
     }
     @PostMapping("/users")
     public String createUser(@Valid @RequestBody CreateUserRequest request){
-        User user = new User(request.getId(),request.getName(),request.getEmail());
+        User user = new User(request.getName(),request.getEmail());
         userService.registerUser(user);
         return "User successfully registered";
     }

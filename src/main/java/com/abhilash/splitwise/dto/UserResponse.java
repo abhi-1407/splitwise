@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 public class UserResponse {
     public UserResponse(String id,String email,String name){

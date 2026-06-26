@@ -13,16 +13,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public void registerUser(User user){
-        if(userRepository.findById(user.getId()) != null){
+        if(userRepository.existsByEmailId(user.getEmailId())){
             throw new DuplicateUserException();
         }
         userRepository.save(user);
     }
     public User getUser(String userId){
-        User user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).orElse(null);
         if(user == null){
             throw new UserNotFoundException(userId);
         }
-        return userRepository.findById(userId);
+        return userRepository.findById(userId).orElse(null);
     }
 }

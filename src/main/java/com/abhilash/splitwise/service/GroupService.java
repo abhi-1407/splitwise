@@ -36,7 +36,7 @@ public class GroupService {
         Set<User> groupList = new HashSet<>();
 
         for(String id : createGroupRequest.getMemberIds()){
-            User user = userRepository.findById(id);
+            User user = userRepository.findById(id).orElse(null);
             if(user == null){
                 throw new UserNotFoundException(id);
             }
@@ -84,7 +84,7 @@ public class GroupService {
             String userId) {
 
         Group group = groupRepository.findById(groupId);
-        User user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).orElse(null);
 
         if(group == null) {
             throw new GroupNotFoundException(groupId);
@@ -106,7 +106,7 @@ public class GroupService {
             String userId) {
 
         Group group = groupRepository.findById(groupId);
-        User user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).orElse(null);
 
         if(group == null) {
             throw new GroupNotFoundException(groupId);

@@ -26,7 +26,7 @@ public class BalanceService {
     }
 
     public Map<String, Long> getUserBalances(String userId) {
-        User user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new UserNotFoundException(userId);
         }
@@ -34,8 +34,8 @@ public class BalanceService {
     }
 
     public String settleBalance(String debtorId, String creditorId, long amount) {
-        User debtor = userRepository.findById(debtorId);
-        User creditor = userRepository.findById(creditorId);
+        User debtor = userRepository.findById(debtorId).orElse(null);
+        User creditor = userRepository.findById(creditorId).orElse(null);
 
         if (debtor == null) {
             throw new UserNotFoundException(debtorId);

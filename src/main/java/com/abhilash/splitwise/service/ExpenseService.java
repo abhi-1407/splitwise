@@ -28,7 +28,7 @@ public class ExpenseService {
     }
 
     public String createExpense(CreateExpenseRequest request) {
-        User paidBy = userRepository.findById(request.getPaidByUserId());
+        User paidBy = userRepository.findById(request.getPaidByUserId()).orElse(null);
 
         if (paidBy == null) {
             throw new UserNotFoundException(request.getPaidByUserId());
@@ -37,7 +37,7 @@ public class ExpenseService {
         List<Split> splits = new ArrayList<>();
 
         for (SplitRequest splitRequest : request.getSplits()) {
-            User user = userRepository.findById(splitRequest.getUserId());
+            User user = userRepository.findById(splitRequest.getUserId()).orElse(null);
             if (user == null) {
                 throw new UserNotFoundException(splitRequest.getUserId());
             }
