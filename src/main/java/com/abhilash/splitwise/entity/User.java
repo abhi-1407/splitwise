@@ -1,12 +1,14 @@
 package com.abhilash.splitwise.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -24,8 +26,12 @@ public class User {
     @Column(nullable = false, unique = true)
     private String emailId;
 
-    public User(String name,String emailId){
-        this.name = name;
-        this.emailId = emailId;
-    }
+    @OneToMany(mappedBy = "paidBy")
+    private List<Expense> paidExpenses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Split> splits = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "members")
+    private Set<Group> groups = new HashSet<>();
 }

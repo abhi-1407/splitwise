@@ -1,23 +1,27 @@
 package com.abhilash.splitwise.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@Entity
+@Table(name = "Split")
 public class Split {
-    private final User user;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String splitId;
+
+    @Column(nullable = false)
     private double amount;
 
-    public Split(User user, double share) {
-        this.user = user;
-        this.amount = share;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setAmount(double amount){
-        this.amount = amount;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "expense_id")
+    private Expense expense;
 }

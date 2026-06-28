@@ -1,25 +1,36 @@
 package com.abhilash.splitwise.entity;
 
-
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
+@Table(name = "expenses")
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Expense {
 
-    private final String expenseId;
-    private final double amount;
-    private final User paidBy;
-    private final List<Split> splits;
-    private Group group;
+    @Id
+    private String expenseId;
 
-    public Expense(String expenseId,double amount,User paidBy,List<Split> splits,Group group){
-        this.expenseId = expenseId;
-        this.amount = amount;
-        this.paidBy = paidBy;
-        this.splits = splits;
-        this.group = group;
-    }
+    @Column(nullable = false)
+    private double amount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paid_by")
+    private User paidBy;
+
+    @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Split> splits = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 }
