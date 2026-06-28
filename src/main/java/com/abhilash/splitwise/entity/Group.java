@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,7 +18,6 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Group {
 
     @Id
@@ -24,10 +25,12 @@ public class Group {
     private String groupId;
 
     @Column(nullable = false)
-    @NotBlank
     private String groupName;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "group_members", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> members = new HashSet<>();
+
+    @OneToMany(mappedBy = "group")
+    private List<Expense> expenses = new ArrayList<>();
 }

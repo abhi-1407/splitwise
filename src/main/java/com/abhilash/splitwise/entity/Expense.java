@@ -14,10 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Expense {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String expenseId;
 
     @Column(nullable = false)

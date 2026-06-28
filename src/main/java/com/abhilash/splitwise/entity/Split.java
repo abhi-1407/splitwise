@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "Split")
+@Table(name = "splits")
 public class Split {
 
     @Id

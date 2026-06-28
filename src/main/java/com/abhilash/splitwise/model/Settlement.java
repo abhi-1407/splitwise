@@ -1,4 +1,4 @@
-package com.abhilash.splitwise.entity;
+package com.abhilash.splitwise.model;
 
 import lombok.Getter;
 

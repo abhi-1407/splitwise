@@ -1,12 +1,11 @@
 package com.abhilash.splitwise.controller;
 
 import com.abhilash.splitwise.dto.SettleBalanceRequest;
-import com.abhilash.splitwise.entity.Settlement;
+import com.abhilash.splitwise.model.Settlement;
 import com.abhilash.splitwise.service.BalanceService;
 import com.abhilash.splitwise.service.DebtSimplificationService;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
