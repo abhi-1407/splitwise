@@ -1,12 +1,8 @@
 package com.abhilash.splitwise.repository;
 
-
 import com.abhilash.splitwise.entity.Group;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface GroupRepository extends JpaRepository<Group, String> {
 
-public interface GroupRepository {
-    void save(Group group);
-    Group findById(String id);
-    List<Group> getAllGroups();
 }

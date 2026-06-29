@@ -19,10 +19,6 @@ public class UserService {
         userRepository.save(user);
     }
     public User getUser(String userId){
-        User user = userRepository.findById(userId).orElse(null);
-        if(user == null){
-            throw new UserNotFoundException(userId);
-        }
-        return userRepository.findById(userId).orElse(null);
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 }

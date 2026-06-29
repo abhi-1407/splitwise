@@ -9,5 +9,6 @@ import lombok.Setter;
 public class SettleBalanceRequest {
     private String debtorId;
     private String creditorId;
+    private String groupId;
     private long amount;
 }

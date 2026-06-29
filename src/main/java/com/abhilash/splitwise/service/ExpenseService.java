@@ -6,7 +6,6 @@ import com.abhilash.splitwise.entity.Expense;
 import com.abhilash.splitwise.entity.Split;
 import com.abhilash.splitwise.entity.User;
 import com.abhilash.splitwise.exception.UserNotFoundException;
-import com.abhilash.splitwise.repository.BalanceRepository;
 import com.abhilash.splitwise.repository.ExpenseRepository;
 import com.abhilash.splitwise.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,49 +14,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
-    private final BalanceRepository balanceRepository;
 
-    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, BalanceRepository balanceRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
-        this.balanceRepository = balanceRepository;
     }
 
     public String createExpense(CreateExpenseRequest request) {
-        User paidBy = userRepository.findById(request.getPaidByUserId()).orElse(null);
+        User paidBy = userRepository.findById(request.getPaidByUserId()).orElseThrow(() -> new UserNotFoundException(request.getPaidByUserId()));
 
-        if (paidBy == null) {
-            throw new UserNotFoundException(request.getPaidByUserId());
-        }
+        Expense expense = new Expense();
+        expense.setAmount(request.getAmount());
+        expense.setPaidBy(paidBy);
 
         List<Split> splits = new ArrayList<>();
 
         for (SplitRequest splitRequest : request.getSplits()) {
-            User user = userRepository.findById(splitRequest.getUserId()).orElse(null);
-            if (user == null) {
-                throw new UserNotFoundException(splitRequest.getUserId());
-            }
-            splits.add(new Split(user, splitRequest.getAmount()));
+            User user = userRepository.findById(splitRequest.getUserId()).orElseThrow(() -> new UserNotFoundException(splitRequest.getUserId()));
+
+            Split split = new Split();
+            split.setAmount(splitRequest.getAmount());
+            split.setUser(user);
+            split.setExpense(expense);
+            splits.add(split);
         }
 
-        Expense expense = new Expense(request.getExpenseId(), request.getAmount(), paidBy, splits, null);
-
+        expense.setSplits(splits);
         expenseRepository.save(expense);
-        for (Split split : splits) {
-            if (split.getUser().getId().equals(paidBy.getId())) {
-                continue;
-            }
-            balanceRepository.updateBalance(paidBy, split.getUser(), (long) split.getAmount());
-        }
-
         return "Expense created successfully";
     }
 
     public Expense getExpense(String expenseId) {
-        return expenseRepository.findBy(expenseId);
+        return expenseRepository.findById(expenseId).orElseThrow(() -> new RuntimeException("Expense not found"));
     }
 }

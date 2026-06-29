@@ -30,69 +30,36 @@ public class GroupService {
     }
 
     public String createGroup(
-            CreateGroupRequest createGroupRequest) {
-
-        String groupId = UUID.randomUUID().toString();
-        Set<User> groupList = new HashSet<>();
-
-        for(String id : createGroupRequest.getMemberIds()){
-            User user = userRepository.findById(id).orElse(null);
-            if(user == null){
-                throw new UserNotFoundException(id);
-            }
-            groupList.add(user);
+            CreateGroupRequest request) {
+        Set<User> members = new HashSet<>();
+        for (String userId : request.getMemberIds()) {
+            members.add(getUserOrThrow(userId));
         }
-        Group group = new Group(
-                groupId,
-                createGroupRequest.getGroupName(),
-                groupList
-        );
+
+        Group group = new Group();
+        group.setGroupName(request.getGroupName());
+        group.setMembers(members);
 
         groupRepository.save(group);
 
-        return "Group Created with ID " + groupId;
+        return "Group created with ID " + group.getGroupId();
     }
 
     public Group getGroup(String groupId) {
-
-        Group group = groupRepository.findById(groupId);
-
-        if(group == null) {
-            throw new GroupNotFoundException(groupId);
-        }
-
-        return group;
+        return getGroupOrThrow(groupId);
     }
 
     public Set<User> fetchGroupMembers(String groupId) {
-
-        Group group = groupRepository.findById(groupId);
-
-        if(group == null) {
-            throw new GroupNotFoundException(groupId);
-        }
-
-        return group.getMembers();
+        return getGroupOrThrow(groupId).getMembers();
     }
 
     public List<Group> getAllGroups() {
-        return groupRepository.getAllGroups();
+        return groupRepository.findAll();
     }
 
-    public String addMember(
-            String groupId,
-            String userId) {
-
-        Group group = groupRepository.findById(groupId);
-        User user = userRepository.findById(userId).orElse(null);
-
-        if(group == null) {
-            throw new GroupNotFoundException(groupId);
-        }
-
-        if(user == null) {
-            throw new UserNotFoundException(userId);
-        }
+    public String addMember(String groupId, String userId) {
+        Group group = getGroupOrThrow(groupId);
+        User user = getUserOrThrow(userId);
 
         group.getMembers().add(user);
 
@@ -101,22 +68,12 @@ public class GroupService {
         return "Member added successfully";
     }
 
-    public String removeMember(
-            String groupId,
-            String userId) {
+    public String removeMember(String groupId, String userId) {
 
-        Group group = groupRepository.findById(groupId);
-        User user = userRepository.findById(userId).orElse(null);
+        Group group = getGroupOrThrow(groupId);
+        User user = getUserOrThrow(userId);
 
-        if(group == null) {
-            throw new GroupNotFoundException(groupId);
-        }
-
-        if(user == null) {
-            throw new UserNotFoundException(userId);
-        }
-
-        if(!group.getMembers().contains(user)) {
+        if (!group.getMembers().contains(user)) {
             throw new MemberNotFoundException(userId);
         }
 
@@ -125,5 +82,13 @@ public class GroupService {
         groupRepository.save(group);
 
         return "Member removed successfully";
+    }
+
+    private Group getGroupOrThrow(String groupId) {
+        return groupRepository.findById(groupId).orElseThrow(() -> new GroupNotFoundException(groupId));
+    }
+
+    private User getUserOrThrow(String userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 }
