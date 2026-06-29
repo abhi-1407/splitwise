@@ -1,6 +1,5 @@
 package com.abhilash.splitwise.controller;
 
-import com.abhilash.splitwise.dto.SettleBalanceRequest;
 import com.abhilash.splitwise.model.Settlement;
 import com.abhilash.splitwise.service.BalanceService;
 import com.abhilash.splitwise.service.DebtSimplificationService;
@@ -26,11 +25,6 @@ public class BalanceController {
     @GetMapping("/user/{userId}")
     public Map<String, Long> getBalance(@PathVariable String userId){
         return balanceService.getUserBalances(userId);
-    }
-
-    @PostMapping("/settle")
-    public String settle(@RequestBody SettleBalanceRequest request){
-        return balanceService.settleBalance(request.getDebtorId(), request.getCreditorId(), request.getAmount());
     }
 
     @GetMapping("/simplify")
