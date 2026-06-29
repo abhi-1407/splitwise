@@ -21,9 +21,7 @@ public class GroupController {
     }
 
     @PostMapping
-    public String createGroup(
-            @RequestBody @Valid CreateGroupRequest createGroupRequest) {
-
+    public String createGroup(@RequestBody @Valid CreateGroupRequest createGroupRequest) {
         return groupService.createGroup(createGroupRequest);
     }
 
@@ -33,32 +31,22 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}")
-    public Group getGroup(
-            @PathVariable String groupId) {
-
+    public Group getGroup(@PathVariable String groupId) {
         return groupService.getGroup(groupId);
     }
 
     @GetMapping("/{groupId}/members")
-    public Set<User> fetchGroupMembers(
-            @PathVariable String groupId) {
-
+    public Set<User> fetchGroupMembers(@PathVariable String groupId) {
         return groupService.fetchGroupMembers(groupId);
     }
 
     @PostMapping("/members/{groupId}/{userId}")
-    public String addMember(
-            @PathVariable String groupId,
-            @PathVariable String userId) {
-
+    public String addMember(@PathVariable String groupId, @PathVariable String userId) {
         return groupService.addMember(groupId, userId);
     }
 
     @DeleteMapping("/members/{groupId}/{userId}")
-    public String removeMember(
-            @PathVariable String groupId,
-            @PathVariable String userId) {
-
+    public String removeMember(@PathVariable String groupId, @PathVariable String userId) {
         return groupService.removeMember(groupId, userId);
     }
 }

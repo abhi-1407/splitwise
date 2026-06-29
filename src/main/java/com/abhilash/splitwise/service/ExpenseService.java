@@ -9,6 +9,7 @@ import com.abhilash.splitwise.exception.UserNotFoundException;
 import com.abhilash.splitwise.repository.ExpenseRepository;
 import com.abhilash.splitwise.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,7 @@ package com.abhilash.splitwise.service;
 import com.abhilash.splitwise.dto.CreateGroupRequest;
 import com.abhilash.splitwise.entity.Group;
 import com.abhilash.splitwise.entity.User;
+import com.abhilash.splitwise.exception.DuplicateUserException;
 import com.abhilash.splitwise.exception.GroupNotFoundException;
 import com.abhilash.splitwise.exception.MemberNotFoundException;
 import com.abhilash.splitwise.exception.UserNotFoundException;
@@ -60,7 +61,9 @@ public class GroupService {
     public String addMember(String groupId, String userId) {
         Group group = getGroupOrThrow(groupId);
         User user = getUserOrThrow(userId);
-
+        if(group.getMembers().contains(user)){
+            throw new DuplicateUserException();
+        }
         group.getMembers().add(user);
 
         groupRepository.save(group);

@@ -1,5 +1,6 @@
 package com.abhilash.splitwise.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +29,14 @@ public class User {
     private String emailId;
 
     @OneToMany(mappedBy = "paidBy")
+    @JsonIgnore
     private List<Expense> paidExpenses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Split> splits = new ArrayList<>();
 
     @ManyToMany(mappedBy = "members")
+    @JsonIgnore
     private Set<Group> groups = new HashSet<>();
 }
