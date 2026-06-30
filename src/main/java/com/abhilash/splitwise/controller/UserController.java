@@ -9,20 +9,21 @@ import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService){
         this.userService = userService;
     }
-    @PostMapping("/users")
-    public String createUser(@Valid @RequestBody CreateUserRequest request){
+    @PostMapping()
+    public UserResponse createUser(@Valid @RequestBody CreateUserRequest request){
         User user = new User();
         user.setName(request.getName());
         user.setEmailId(request.getEmail());
         userService.registerUser(user);
-        return "User successfully registered";
+        return new UserResponse(user.getId(),user.getEmailId(), user.getName());
     }
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public UserResponse getUser(@PathVariable String id){
         User user = userService.getUser(id);
         return new UserResponse(user.getId(),user.getEmailId(), user.getName());
