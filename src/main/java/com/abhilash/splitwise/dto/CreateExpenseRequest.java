@@ -12,9 +12,6 @@ import java.util.List;
 @Setter
 public class CreateExpenseRequest {
 
-    @NotBlank
-    private String expenseId;
-
     @Positive
     private double amount;
 

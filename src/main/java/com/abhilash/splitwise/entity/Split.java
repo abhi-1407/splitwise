@@ -1,5 +1,6 @@
 package com.abhilash.splitwise.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,6 @@ public class Split {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_id")
+    @JsonIgnore
     private Expense expense;
 }

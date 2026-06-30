@@ -27,5 +27,4 @@ public class UserController {
         User user = userService.getUser(id);
         return new UserResponse(user.getId(),user.getEmailId(), user.getName());
     }
-
 }

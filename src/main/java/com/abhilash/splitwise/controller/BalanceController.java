@@ -21,12 +21,10 @@ public class BalanceController {
     public Map<String, Map<String, Long>> getAllBalance(){
         return balanceService.getAllBalances();
     }
-
     @GetMapping("/user/{userId}")
     public Map<String, Long> getBalance(@PathVariable String userId){
         return balanceService.getUserBalances(userId);
     }
-
     @GetMapping("/simplify")
     public List<Settlement> simplifyDebts(){
         return debtSimplificationService.getSimplifiedBalance();
