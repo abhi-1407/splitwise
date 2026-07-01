@@ -3,6 +3,7 @@ package com.abhilash.splitwise.controller;
 import com.abhilash.splitwise.model.SimplifiedSettlement;
 import com.abhilash.splitwise.service.BalanceService;
 import com.abhilash.splitwise.service.DebtSimplificationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,20 +14,20 @@ import java.util.Map;
 public class BalanceController {
     private final BalanceService balanceService;
     private final DebtSimplificationService debtSimplificationService;
-    public BalanceController(BalanceService balanceService, DebtSimplificationService debtSimplificationService){
+    public BalanceController(BalanceService balanceService, DebtSimplificationService debtSimplificationService) {
         this.balanceService = balanceService;
         this.debtSimplificationService = debtSimplificationService;
     }
-    @GetMapping()
-    public Map<String, Map<String, Long>> getAllBalance(){
-        return balanceService.getAllBalances();
+    @GetMapping
+    public ResponseEntity<Map<String, Map<String, Long>>> getAllBalances() {
+        return ResponseEntity.ok(balanceService.getAllBalances());
     }
     @GetMapping("/user/{userId}")
-    public Map<String, Long> getBalances(@PathVariable String userId){
-        return balanceService.getUserBalances(userId);
+    public ResponseEntity<Map<String, Long>> getUserBalances(@PathVariable String userId) {
+        return ResponseEntity.ok(balanceService.getUserBalances(userId));
     }
     @GetMapping("/simplify")
-    public List<SimplifiedSettlement> getSimplifiedDebts(){
-        return debtSimplificationService.getSimplifiedBalance();
+    public ResponseEntity<List<SimplifiedSettlement>> getSimplifiedDebts() {
+        return ResponseEntity.ok(debtSimplificationService.getSimplifiedBalance());
     }
 }

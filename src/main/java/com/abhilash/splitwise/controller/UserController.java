@@ -5,7 +5,8 @@ import com.abhilash.splitwise.dto.UserResponse;
 import com.abhilash.splitwise.entity.User;
 import com.abhilash.splitwise.service.UserService;
 import jakarta.validation.Valid;
-import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,16 +17,19 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping()
-    public UserResponse createUser(@Valid @RequestBody CreateUserRequest request){
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request){
         User user = new User();
         user.setName(request.getName());
         user.setEmailId(request.getEmail());
         userService.registerUser(user);
-        return new UserResponse(user.getId(),user.getEmailId(), user.getName());
+
+        UserResponse userResponse = new UserResponse(user.getId(),user.getEmailId(),user.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
     @GetMapping("/{id}")
-    public UserResponse getUser(@PathVariable String id){
+    public ResponseEntity<UserResponse> getUser(@PathVariable String id){
         User user = userService.getUser(id);
-        return new UserResponse(user.getId(),user.getEmailId(), user.getName());
+        UserResponse userResponse = new UserResponse(user.getId(),user.getEmailId(), user.getName());
+        return ResponseEntity.ok(userResponse);
     }
 }

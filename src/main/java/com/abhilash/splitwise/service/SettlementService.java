@@ -2,6 +2,7 @@ package com.abhilash.splitwise.service;
 
 import com.abhilash.splitwise.dto.SettleBalanceRequest;
 import com.abhilash.splitwise.entity.Group;
+import com.abhilash.splitwise.entity.Settlement;
 import com.abhilash.splitwise.entity.User;
 import com.abhilash.splitwise.exception.GroupNotFoundException;
 import com.abhilash.splitwise.exception.UserNotFoundException;
@@ -15,13 +16,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class Settlement {
+public class SettlementService {
 
     private final SettlementRepository settlementRepository;
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
 
-    public Settlement(
+    public SettlementService(
             SettlementRepository settlementRepository,
             UserRepository userRepository,
             GroupRepository groupRepository) {
@@ -42,7 +43,7 @@ public class Settlement {
         Group group = groupRepository.findById(request.getGroupId())
                 .orElseThrow(() -> new GroupNotFoundException(request.getGroupId()));
 
-        com.abhilash.splitwise.entity.Settlement settlement = new com.abhilash.splitwise.entity.Settlement();
+        Settlement settlement = new Settlement();
         settlement.setDebtor(debtor);
         settlement.setCreditor(creditor);
         settlement.setGroup(group);
@@ -53,7 +54,7 @@ public class Settlement {
         return "Settlement recorded successfully";
     }
 
-    public List<com.abhilash.splitwise.entity.Settlement> getGroupSettlements(String groupId) {
+    public List<Settlement> getGroupSettlements(String groupId) {
 
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new GroupNotFoundException(groupId));

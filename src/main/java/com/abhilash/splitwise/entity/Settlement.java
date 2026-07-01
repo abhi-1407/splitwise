@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SimplifiedSettlement {
+public class Settlement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

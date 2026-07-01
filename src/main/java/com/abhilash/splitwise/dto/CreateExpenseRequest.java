@@ -1,12 +1,12 @@
 package com.abhilash.splitwise.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -18,6 +18,9 @@ public class CreateExpenseRequest {
     @NotBlank
     private String paidByUserId;
 
-    private List<SplitRequest> splits;
+    @NotBlank
+    private String groupId;
 
+    @NotEmpty
+    private List<SplitRequest> splits;
 }
